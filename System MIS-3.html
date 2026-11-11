@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>System MIS</title>
+<style>
+:root{--bg:#f2f5f4;--card:#fff;--ink:#17231f;--mut:#5f6f69;--line:#dbe3e0;--side:#14302a;--sideink:#d5e6e0;--acc:#b9780f;--a:#2a7f78;--b:#d9a441;--up:#1c8a4a;--dn:#c23b2e;--box:#fbf3df;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1815;--card:#16241f;--ink:#e7f0ec;--mut:#9bb0a8;--line:#27393332;--line:#2a3d37;--side:#0a1210;--box:#2b2412;--a:#4db8ae;--b:#e5b455;--up:#43c177;--dn:#ee6a5c}}
+:root[data-theme="dark"]{--bg:#0e1815;--card:#16241f;--ink:#e7f0ec;--mut:#9bb0a8;--line:#2a3d37;--side:#0a1210;--box:#2b2412;--a:#4db8ae;--b:#e5b455;--up:#43c177;--dn:#ee6a5c}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:14px/1.45 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;display:grid;grid-template-columns:230px 1fr}
+aside{background:var(--side);color:var(--sideink);padding:20px 12px;overflow:auto}
+aside h1{font-size:19px;margin:0 8px 18px;color:#fff;font-weight:600}
+aside button{display:block;width:100%;text-align:left;background:none;border:0;color:inherit;font:inherit;padding:10px 12px;border-radius:6px;cursor:pointer;margin-bottom:2px}
+aside button:hover{background:#ffffff14}aside button.on{background:var(--acc);color:#fff;font-weight:600}
+main{overflow:auto;padding:22px 26px 0;min-width:0;display:flex;flex-direction:column}
+h2{margin:0 0 14px;font-size:24px;letter-spacing:.02em}
+.bar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-end;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:16px}
+.f{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--mut)}
+select,input,button.t{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 8px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{border:0;background:var(--bg);color:var(--ink);padding:7px 12px;font:inherit;cursor:pointer}.seg button.on{background:var(--a);color:#fff}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:16px;align-items:start}
+.pi{display:grid;grid-template-columns:minmax(200px,1fr) minmax(0,3fr);gap:16px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:16px;min-width:0}
+.card h3{margin:0 0 10px;font-size:15px}
+.sc{overflow-x:auto}
+table{border-collapse:collapse;width:100%}th,td{padding:7px 9px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child,th.l,td.l{text-align:left}th{font-weight:600;color:var(--mut);font-size:12.5px}
+th button{background:none;border:0;color:inherit;font:inherit;font-weight:600;cursor:pointer;padding:0}
+th small{display:block;font-weight:400;color:var(--acc)}
+.up{color:var(--up)}.dn{color:var(--dn)}
+.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.kp .card{margin:0}.kp b{font-size:21px;display:block}.kp span{color:var(--mut);font-size:12px}
+.wb{display:flex;gap:10px;align-items:stretch}.wb .box{background:var(--box);border-radius:6px;padding:6px 10px;font-size:12px;border-left:3px solid var(--acc)}
+.tree label{display:flex;gap:6px;align-items:center;padding:3px 0;cursor:pointer}.tree .c{margin-left:20px}.tree .i{margin-left:42px}
+.sum{position:sticky;bottom:0;margin:auto -26px 0;padding:10px 26px calc(10px + env(safe-area-inset-bottom,0px));background:var(--side);color:#fff;display:flex;gap:28px;flex-wrap:wrap;z-index:2}
+.sum span{color:var(--sideink);font-size:12px;display:block}.sum b{font-size:17px}
+svg text.ax{font-size:11px;fill:var(--mut)}.f0{fill:var(--a)}.f1{fill:var(--b)}.s0{stroke:var(--a);fill:none}.s1{stroke:var(--b);fill:none}
+.lg{display:flex;gap:14px;font-size:12px;color:var(--mut);margin-top:4px}.lg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px}
+.empty{color:var(--mut);padding:30px 4px}
+@media(max-width:860px){body{grid-template-columns:1fr;grid-template-rows:auto 1fr}aside{display:flex;gap:4px;overflow-x:auto;padding:10px}aside h1{display:none}aside button{white-space:nowrap;width:auto}.grid,.pi{grid-template-columns:1fr}main{padding:16px 14px 0}.sum{margin:auto -14px 0;padding-left:14px}}
+</style>
+</head>
+<body>
+<aside id="nav"></aside>
+<main id="main"></main>
+<script>
+const $=s=>document.querySelector(s),fmt=n=>Math.round(n).toLocaleString("en-LK"),rs=n=>"Rs. "+fmt(n),pc=n=>n.toFixed(1)+"%";
+const rnd=(a,b)=>{const x=Math.sin(a*127.1+b*311.7)*43758.5453;return x-Math.floor(x)};
+const dn=s=>Math.floor(Date.parse(s)/864e5),ds=d=>new Date(d*864e5).toISOString().slice(0,10);
+const CATS={Buns:[["Fish bun",60],["Cream bun",70],["Viana roll",80],["Umbalakada bun",50],["Sausage bun",90],["Jam bun",55],["Jam dot bun",55]],
+Shorteats:[["Chicken patties",110],["Egg patties",100],["Egg cutlet",90],["Vegetable cutlet",80],["Samosa",70],["Rolls",85],["Cheesy rolls",120]],
+Bread:[["Full bread",190],["Half bread",100],["Roast paan",30],["Sandwich bread small",130],["Sandwich bread big",220]]};
+const PR=[];Object.entries(CATS).forEach(([c,l])=>l.forEach(([n,p])=>PR.push({n,c,p,g:.22+.2*rnd(PR.length,9)})));
+const qty=(i,d)=>Math.round((40+(i*7%5)*25)*(.7+.6*rnd(i+1,d))*(((d+4)%7==0||(d+4)%7==6)?1.25:1));
+const ALL=PR.map((_,i)=>i);
+function sumV(items,d0,d1,m,wd){let v=0,n=0;for(let d=d0;d<=d1;d++){if(m=="weekly"&&(d+4)%7!=wd)continue;n++;items.forEach(i=>v+=qty(i,d)*PR[i].p)}return m=="avg"?(n?v/n:0):v}
+function chart(el,labels,series,kind){
+ const W=Math.max(560,labels.length*(kind=="bar"?series.length*20+16:44)+70),H=300,m={l:52,r:8,t:12,b:80};
+ const max=Math.max(...series.flatMap(s=>s.v),1)*1.1,iw=W-m.l-m.r,ih=H-m.t-m.b,st=iw/labels.length;
+ const sh=v=>v>=1e6?(v/1e6).toFixed(1)+"M":v>=1e3?(v/1e3).toFixed(v>=1e4?0:1)+"k":Math.round(v);
+ let o=`<div class="sc"><svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img">`;
+ for(let k=0;k<=4;k++){const y=m.t+ih*(1-k/4);o+=`<line x1="${m.l}" x2="${W-m.r}" y1="${y}" y2="${y}" stroke="var(--line)"/><text x="${m.l-6}" y="${y+4}" text-anchor="end" class="ax">${sh(max*k/4)}</text>`}
+ labels.forEach((l,i)=>{const cx=m.l+st*(i+.5),ty=H-m.b+14;o+=`<text transform="rotate(-35 ${cx} ${ty})" x="${cx}" y="${ty}" text-anchor="end" class="ax">${l}</text>`;
+  if(kind=="bar"){const bw=Math.min(20,(st-6)/series.length);series.forEach((s,j)=>{const h=s.v[i]/max*ih;o+=`<rect class="f${j}" x="${cx-bw*series.length/2+j*bw}" y="${m.t+ih-h}" width="${bw-2}" height="${h}" rx="2"><title>${s.n} – ${l}: ${fmt(s.v[i])}</title></rect>`})}});
+ if(kind=="line")series.forEach((s,j)=>{const p=s.v.map((v,i)=>[m.l+st*(i+.5),m.t+ih*(1-v/max)]);o+=`<polyline class="s${j}" stroke-width="2.5" points="${p.map(q=>q.join(",")).join(" ")}"/>`+p.map(q=>`<circle class="f${j}" cx="${q[0]}" cy="${q[1]}" r="3.5"/>`).join("")});
+ el.innerHTML=o+`</svg></div><div class="lg">${series.map((s,j)=>`<span><i class="f${j}" style="background:var(--${j?"b":"a"})"></i>${s.n}</span>`).join("")}</div>`}
+const opt=(l,v)=>l.map(x=>{const[a,b]=Array.isArray(x)?x:[x,x];return`<option value="${b}"${b==v?" selected":""}>${a}</option>`}).join("");
+const fld=(lab,k,l,v)=>`<label class="f">${lab}<select data-k="${k}">${opt(l,v)}</select></label>`;
+const dt=(lab,k,v)=>`<label class="f">${lab}<input type="date" data-k="${k}" value="${v}"></label>`;
+const seg=(k,l,v)=>`<div class="seg">${l.map(([a,b])=>`<button data-s="${k}" data-v="${b}" class="${b==v?"on":""}">${a}</button>`).join("")}</div>`;
+const arrow=(d,goodUp)=>d==0?"":`<span class="${(d>0)==goodUp?"up":"dn"}">${d>0?"▲":"▼"}</span>`;
+/* ---------- state ---------- */
+const ST={page:"Sales Dashboard",
+S:{m:"daily",g:"total",u:"val",vt:"amount",from:"2026-10-03",to:"2026-11-02",wd:"0",td:"2026-11-02",t0:"09:00",t1:"10:00"},
+P:{f:"all",from:"2026-10-26",to:"2026-11-02",sel:new Set(ALL),sort:["v",-1],ck:"bar"},
+C:{rm:"all",tl:"mo",vt:"amount",sort:-1,cf:"all",br:{}}};
+const PAGES=["Sales Dashboard","Product Info","Cost of Sales","Price Variance","Wastage","Production Variance","KOT","Day End"];
+/* ---------- Sales ---------- */
+function salesOld(){
+ const s=ST.S,d0=dn(s.from),d1=Math.max(dn(s.to),d0),m=s.m,wd=+s.wd,len=d1-d0+1;
+ const f=(it,a,b)=>sumV(it,a,b,m,wd);let rows=[];
+ if(s.g=="total"){let c=d0;const bk=d=>{const x=new Date(d*864e5),y=x.getUTCFullYear(),mo=x.getUTCMonth();return s.p=="days"?[d,d]:s.p=="months"?[Date.UTC(y,mo,1)/864e5,Date.UTC(y,mo+1,0)/864e5]:[Date.UTC(y,0,1)/864e5,Date.UTC(y+1,0,0)/864e5]};
+  while(c<=d1&&rows.length<90){const[a,b]=bk(c),pb=bk(a-1);rows.push({l:s.p=="days"?ds(a):s.p=="months"?ds(a).slice(0,7):ds(a).slice(0,4),cur:f(ALL,Math.max(a,d0),Math.min(b,d1)),prev:f(ALL,pb[0],pb[1])});c=b+1}}
+ else if(s.g=="product")rows=PR.map((p,i)=>({l:p.n,cur:f([i],d0,d1),prev:f([i],d0-len,d0-1)}));
+ else rows=Object.keys(CATS).map(c=>{const it=ALL.filter(i=>PR[i].c==c);return{l:c,cur:f(it,d0,d1),prev:f(it,d0-len,d0-1)}});
+ const tot=rows.reduce((a,r)=>a+r.cur,0),pct=s.vt=="percentage",ttl={daily:"Daily sales",avg:"Average sales",timeline:"Sales time-line",weekly:"Weekly sales"}[m];
+ const cell=r=>pct?pc(tot?r.cur/tot*100:0):rs(r.cur);
+ const chg=r=>{const d=r.cur-r.prev;return pct?(r.prev?pc(d/r.prev*100):"–"):rs(d)};
+ return`<h2>SALES</h2><div class="bar">${fld("Primary metric","m",[["Daily Sales","daily"],["Daily Average Sales","avg"],["Sales Time-Line (compare with other dates)","timeline"],["Weekly Sale & Time Line","weekly"]],m)}
+ ${m=="weekly"?fld("Day of week","wd",["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"].map((x,i)=>[x,i]),s.wd):""}
+ ${fld("Grouping","g",[["Total Sale Wise","total"],["Product Wise","product"],["Category Wise","category"]],s.g)}
+ ${fld("Period","p",[["Days","days"],["Months","months"],["Years","years"]],s.p)}${dt("From","from",s.from)}${dt("To","to",s.to)}
+ <div class="f">Value type${seg("vt",[["Percentage","percentage"],["Amount","amount"]],s.vt)}</div></div>
+ <div class="grid"><div class="card"><h3>${ttl}${m=="weekly"?" – every "+["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][wd]:""}</h3><div class="sc" style="max-height:440px;overflow:auto"><table><tr><th>No.</th><th class="l">${{total:"Date",product:"Product",category:"Category"}[s.g]==="Date"?{days:"Day",months:"Month",years:"Year"}[s.p]:{product:"Product",category:"Category"}[s.g]}</th><th>${m=="avg"?"Average sales":"Sales"}${pct?" (share)":""}</th><th>Previous</th><th>Change</th></tr>
+ ${rows.map((r,i)=>`<tr><td>${i+1}</td><td class="l">${r.l}</td><td>${cell(r)}</td><td>${rs(r.prev)}</td><td>${arrow(r.cur-r.prev,true)} ${chg(r)}</td></tr>`).join("")}</table></div></div>
+ <div class="card"><h3>${ds(d0)} to ${ds(d1)} vs previous period</h3><div id="ch"></div></div></div>`}
+salesOld.after=()=>{const s=ST.S;const t=$("#main");/* chart built from table rows */
+ const rows=[...t.querySelectorAll("table tr")].slice(1).slice(0,24).map(tr=>[...tr.children].map(c=>c.textContent));
+ const n=x=>+(x.replace(/[^0-9.-]/g,""))||0;
+ const g=document.createElement("div");const cur=rows.map(r=>n(r[2])),prev=rows.map(r=>n(r[3]));
+ const cs=ST.S.vt=="percentage";const cv=cs?rows.map((r,i)=>prev[i]+n(r[4])*(0)):cur;
+ chart($("#ch"),rows.map(r=>r[1]),[{n:"Current",v:cs?SALESCUR:cur},{n:"Previous",v:prev}],"bar")};
+/* store raw current values for percentage mode */
+const _s=salesOld;let SALESCUR=[];
+var _w=function(){return _s()};
+</script>
+<script>
+/* Sales chart needs raw values; recompute simply */
+function salesChartOld(){const s=ST.S,d0=dn(s.from),d1=Math.max(dn(s.to),d0),m=s.m,wd=+s.wd,len=d1-d0+1;let L=[],A=[],B=[];
+ const f=(it,a,b)=>sumV(it,a,b,m,wd);
+ if(s.g=="total"){let c=d0;const bk=d=>{const x=new Date(d*864e5),y=x.getUTCFullYear(),mo=x.getUTCMonth();return s.p=="days"?[d,d]:s.p=="months"?[Date.UTC(y,mo,1)/864e5,Date.UTC(y,mo+1,0)/864e5]:[Date.UTC(y,0,1)/864e5,Date.UTC(y+1,0,0)/864e5]};
+  while(c<=d1&&L.length<24){const[a,b]=bk(c),p=bk(a-1);L.push(s.p=="days"?ds(a).slice(5):s.p=="months"?ds(a).slice(0,7):ds(a).slice(0,4));A.push(f(ALL,Math.max(a,d0),Math.min(b,d1)));B.push(f(ALL,p[0],p[1]));c=b+1}}
+ else{const gr=s.g=="product"?PR.map((p,i)=>[p.n,[i]]):Object.keys(CATS).map(c=>[c,ALL.filter(i=>PR[i].c==c)]);
+  gr.slice(0,24).forEach(([l,it])=>{L.push(l);A.push(f(it,d0,d1));B.push(f(it,d0-len,d0-1))})}
+ chart($("#ch"),L,[{n:"Selected dates",v:A},{n:"Previous period",v:B}],"bar")}
+/* ---------- Sales (revised) ---------- */
+const CH={pickme:["PickMe Sales",.12],uber:["UberEats Sales",.09],dine:["Dine-In Sales",.45],take:["TakeAway Sales",.34]};
+const SHARE=(g,d)=>CH[g]?CH[g][1]*(.85+.3*rnd(g.length,d)):1;
+function shift(d,m){if(m=="weekly")return d-28;const x=new Date(d*864e5);x.setUTCMonth(x.getUTCMonth()-1);return Math.floor(x/864e5)}
+function calc(it,a,b,s){let t=0,n=0;for(let d=a;d<=b;d++){if(s.m=="weekly"&&(d+4)%7!=+s.wd)continue;n++;const k=SHARE(s.g,d);it.forEach(i=>t+=qty(i,d)*(s.u=="qty"?1:PR[i].p)*k)}return s.m=="avg"?(n?t/n:0):t}
+function salesRows(){const s=ST.S,d0=dn(s.from),d1=Math.max(dn(s.to),d0),f=(it,a,b)=>calc(it,a,b,s),pr=(it,a,b)=>f(it,shift(a,s.m),shift(b,s.m)),rows=[];
+ if(s.g=="product")PR.forEach((p,i)=>rows.push({l:p.n,cur:f([i],d0,d1),prev:pr([i],d0,d1)}));
+ else if(s.g=="category")Object.keys(CATS).forEach(c=>{const it=ALL.filter(i=>PR[i].c==c);rows.push({l:c,cur:f(it,d0,d1),prev:pr(it,d0,d1)})});
+ else if(s.m=="avg"){let c=d0;while(c<=d1&&rows.length<60){const x=new Date(c*864e5),y=x.getUTCFullYear(),mo=x.getUTCMonth(),a=Date.UTC(y,mo,1)/864e5,b=Date.UTC(y,mo+1,0)/864e5;rows.push({l:ds(a).slice(0,7),cur:f(ALL,Math.max(a,d0),Math.min(b,d1)),prev:f(ALL,Date.UTC(y,mo-1,1)/864e5,Date.UTC(y,mo,0)/864e5)});c=b+1}}
+ else for(let d=d0;d<=d1&&rows.length<120;d++){if(s.m=="weekly"&&(d+4)%7!=+s.wd)continue;rows.push({l:ds(d),cur:f(ALL,d,d),prev:f(ALL,shift(d,s.m),shift(d,s.m))})}
+ return rows}
+function sales(){const s=ST.S,rows=salesRows(),q=s.u=="qty",pct=s.vt=="percentage",DAYS=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+ const nf=v=>q?fmt(v):rs(v),vn=v=>(v>0?"+":v<0?"−":"")+nf(Math.abs(v));
+ const first=s.g=="product"?"Product":s.g=="category"?"Category":s.m=="avg"?"Month":"Date";
+ const ttl={daily:"Daily sales",avg:"Monthly average sales (per day)",weekly:"Weekly sales – every "+DAYS[+s.wd]}[s.m];
+ const pv=r=>r.prev?(r.cur-r.prev)/r.prev*100:0;
+ return`<h2>SALES</h2><div class="bar">${fld("Primary metric","m",[["Daily Sales","daily"],["Monthly Average Sales","avg"],["Weekly Sale & Time Line","weekly"]],s.m)}
+ ${s.m=="weekly"?fld("Day of week","wd",DAYS.map((x,i)=>[x,i]),s.wd):""}
+ ${fld("Grouping","g",[["Total Sale Wise","total"],["Product Wise","product"],["Category Wise","category"],["PickMe Sales","pickme"],["UberEats Sales","uber"],["Dine-In Sales","dine"],["TakeAway Sales","take"]],s.g)}${dt("From","from",s.from)}${dt("To","to",s.to)}<label class="f">Time from<input type="time" data-k="t0" value="${s.t0}"></label><label class="f">Time to<input type="time" data-k="t1" value="${s.t1}"></label>
+ <div class="f">Show${seg("u",[["Quantity","qty"],["Value","val"]],s.u)}</div><div class="f">Value type${seg("vt",[["Percentage","percentage"],["Amount","amount"]],s.vt)}</div></div>
+ <div class="grid"><div class="card"><h3>${ttl}</h3><div class="sc" style="max-height:440px;overflow:auto"><table><tr><th>No.</th><th class="l">${first}</th><th>${q?"Quantity":"Sales"}</th><th>Previous Month</th><th>Variance</th>${pct?"<th>Percentage Variance</th>":""}</tr>
+ ${rows.map((r,i)=>`<tr><td>${i+1}</td><td class="l">${r.l}</td><td>${nf(r.cur)}</td><td>${nf(r.prev)}</td><td>${vn(r.cur-r.prev)}</td>${pct?`<td>${arrow(r.cur-r.prev,true)} ${pc(Math.abs(pv(r)))}</td>`:""}</tr>`).join("")||'<tr><td class="empty" colspan="6">No dates match this selection.</td></tr>'}</table></div></div>
+ <div class="card"><h3>${ds(dn(s.from))} to ${ds(Math.max(dn(s.to),dn(s.from)))} vs previous month</h3><div id="ch"></div></div></div>
+ <div class="card"><h3>Sales by time of day</h3><p style="margin:0 0 10px;color:var(--mut)">Showing ${s.to} from ${s.t0} to ${s.t1}. Change the To date or the time range in the filters above.</p><div id="tk"></div><div id="tch"></div><div class="sc" style="max-height:300px;overflow:auto;margin-top:10px"><table id="tt"></table></div></div>`}
+function salesChart(){const r=salesRows().slice(0,24);chart($("#ch"),r.map(x=>x.l.length>7?x.l.slice(5):x.l),[{n:"Selected dates",v:r.map(x=>x.cur)},{n:"Previous month",v:r.map(x=>x.prev)}],ST.S.m=="avg"?"bar":"line")}
+function timeChart(){const s=ST.S,day=dn(s.to),[h0,m0]=s.t0.split(":").map(Number),[h1,m1]=s.t1.split(":").map(Number),a=h0*60+m0,b=Math.min(Math.max(h1*60+m1,a+1),a+360),R=[],sc=CH[s.g]?CH[s.g][1]*2.2:1;
+ for(let t=a;t<b;t++){const h=t/60,rate=h>=7&&h<10?3.2:h>=12&&h<14?3:h>=17&&h<20?2.6:1.2,bills=Math.round(rate*sc*(.2+1.6*rnd(t,day))),q=Math.round(bills*(1.5+2*rnd(t,day+3))),v=q*95*(.8+.4*rnd(t,day+5));R.push({l:String(t/60|0).padStart(2,"0")+":"+String(t%60).padStart(2,"0"),bills,q,v})}
+ const T=k=>R.reduce((x,y)=>x+y[k],0),pk=R.reduce((x,y)=>y.bills>x.bills?y:x,R[0]);
+ $("#tk").innerHTML=`<div class="kp"><div class="card"><span>Bills in range</span><b>${fmt(T("bills"))}</b></div><div class="card"><span>Quantity</span><b>${fmt(T("q"))}</b></div><div class="card"><span>Value</span><b>${rs(T("v"))}</b></div><div class="card"><span>Busiest minute</span><b>${pk.l} (${pk.bills} bills)</b></div><div class="card"><span>Minutes with 3+ bills</span><b>${R.filter(x=>x.bills>=3).length} of ${R.length}</b></div></div>`;
+ chart($("#tch"),R.map(x=>x.l),[{n:"Bills per minute",v:R.map(x=>x.bills)}],"bar");
+ $("#tt").innerHTML="<tr><th>Time</th><th>Bills</th><th>Quantity</th><th>Value</th></tr>"+R.map(x=>`<tr><td>${x.l}</td><td>${x.bills}</td><td>${x.q}</td><td>${rs(x.v)}</td></tr>`).join("")}
+/* ---------- Product Info ---------- */
+function pinfo(i,a,b){let q=0;for(let d=a;d<=b;d++)q+=qty(i,d);const v=q*PR[i].p;return{q,v,gp:v*PR[i].g,w:2+7*rnd(i+50,a)}}
+function product(){
+ const s=ST.P,d0=dn(s.from),d1=Math.max(dn(s.to),d0),len=d1-d0+1;
+ const items=s.f=="all"?ALL:ALL.filter(i=>s.sel.has(i));
+ const cur=items.map(i=>({i,...pinfo(i,d0,d1)})),prv=items.map(i=>pinfo(i,d0-len,d0-1));
+ const sum=(a,k)=>a.reduce((x,y)=>x+y[k],0);
+ const wc=cur.reduce((x,r)=>x+r.v*r.w/100,0),wp=prv.reduce((x,r)=>x+r.v*r.w/100,0),wcp=sum(cur,"v")?wc/sum(cur,"v")*100:0,wpp=sum(prv,"v")?wp/sum(prv,"v")*100:0;
+ let rows=s.f=="category"?Object.keys(CATS).filter(c=>cur.some(r=>PR[r.i].c==c)).map(c=>{const r=cur.filter(x=>PR[x.i].c==c);return{n:c,q:sum(r,"q"),v:sum(r,"v"),gp:sum(r,"gp")}}):cur.map(r=>({n:PR[r.i].n,q:r.q,v:r.v,gp:r.gp}));
+ rows.sort((a,b)=>(a[s.sort[0]]-b[s.sort[0]])*-s.sort[1]);
+ let tree="";
+ if(s.f=="all")tree=`<p class="empty">All ${PR.length} products are included. Choose Product Wise, Category Wise or Selective Products to pick items.</p>`;
+ else{const allOn=s.sel.size==PR.length;tree=`<div class="tree"><label><input type="checkbox" data-t="all" ${allOn?"checked":""}> <b>Select All</b></label>`+Object.keys(CATS).map(c=>{const ix=ALL.filter(i=>PR[i].c==c),on=ix.every(i=>s.sel.has(i));
+  return`<label class="c"><input type="checkbox" data-t="c:${c}" ${on?"checked":""}> <b>${c}</b></label>`+(s.f=="category"?"":ix.map(i=>`<label class="i"><input type="checkbox" data-t="i:${i}" ${s.sel.has(i)?"checked":""}> ${PR[i].n}</label>`).join(""))}).join("")+"</div>"}
+ const th=(k,l)=>`<th><button data-sort="${k}">${l}</button><small>${s.sort[0]==k?(s.sort[1]<0?"High to Low":"Low to High"):"High to Low"}</small></th>`;
+ return`<h2>PRODUCT INFO</h2><div class="bar">${fld("Product selection","f",[["All Products","all"],["Product Wise","product"],["Category Wise","category"],["Selective Products","selective"]],s.f)}${dt("From","from",s.from)}${dt("To","to",s.to)}</div>
+ <div class="pi"><div class="card"><h3>Select products</h3>${tree}</div><div>
+ <div class="kp"><div class="card"><span>Product Sales</span><b>${rs(sum(cur,"v"))}</b></div><div class="card"><span>GP</span><b>${rs(sum(cur,"gp"))}</b></div><div class="card"><span>Sale (qty)</span><b>${fmt(sum(cur,"q"))}</b></div>
+ <div class="card"><span>Wastage</span><div class="wb"><b>${pc(wcp)} ${arrow(wcp-wpp,false)}</b><div class="box">${wcp>=wpp?"Up":"Down"} ${Math.abs(wcp-wpp).toFixed(2)} pts<br>${rs(Math.abs(wc-wp))} ${wc>=wp?"more":"less"} than before (${rs(wp)} → ${rs(wc)})</div></div></div></div>
+ <div class="card"><h3>${s.f=="category"?"Sale value by category":"Sale value by product"} <span class="seg" style="float:right">${[["Bar","bar"],["Line","line"]].map(([a,b])=>`<button data-s="ck" data-v="${b}" class="${s.ck==b?"on":""}">${a}</button>`).join("")}</span></h3><div id="pch"></div></div>
+ <div class="card"><h3>Wastage report</h3><div class="sc" style="max-height:340px;overflow:auto"><table><tr><th class="l">${s.f=="category"?"Category":"Product"}</th>${th("q","Sale quantity")}${th("v","Sale value")}${th("gp","GP")}</tr>${rows.map(r=>`<tr><td class="l">${r.n}</td><td>${fmt(r.q)}</td><td>${rs(r.v)}</td><td>${rs(r.gp)}</td></tr>`).join("")||'<tr><td class="empty" colspan="4">No products selected.</td></tr>'}</table></div></div></div></div>
+ <div class="sum"><div><span>Total Sales</span><b>${rs(sum(cur,"v"))}</b></div><div><span>Total GP</span><b>${rs(sum(cur,"gp"))}</b></div><div><span>Total Sale Quantity</span><b>${fmt(sum(cur,"q"))}</b></div></div>`+`<i hidden id="pd" data-l='${JSON.stringify(rows.map(r=>r.n))}' data-v='${JSON.stringify(rows.map(r=>Math.round(r.v)))}'></i>`}
+function productChart(){const e=$("#pd");if(!e)return;chart($("#pch"),JSON.parse(e.dataset.l),[{n:"Sale value",v:JSON.parse(e.dataset.v)}],ST.P.ck)}
+/* ---------- Cost of Sales ---------- */
+const RM=[["Flour","Main Store",[["Prima",255],["7 Star",248],["Blue Star",262]],900],["Sugar","Main Store",[["Local",290]],420],["Margarine","Main Store",[["Blue Band",780]],160],["Yeast","Main Store",[["Mauripan",1900]],30],["Milk powder","Main Store",[["Anchor",1450]],70],
+["Butter","Mini Store",[["Astra",1450],["Madorina",1380]],85],["Tea powder","Mini Store",[["Local",1800],["Zezta",2100],["Watawala",2350],["Thalawakele",2250]],25],["Eggs","Kitchen",[["Farm",38]],2400],["Chicken","Kitchen",[["Fresh",1150]],140]];
+const TL={wk:["1 week ago",7],mo:["1 month ago",30],q:["3 months ago",90],yr:["1 year ago",365]};
+function costRows(){const c=ST.C;return RM.filter(r=>c.rm=="all"||c.rm=="section"||r[1]==({main:"Main Store",mini:"Mini Store",kitchen:"Kitchen"}[c.rm])).map((r,i)=>{
+ const bi=Math.min(c.br[r[0]]||0,r[2].length-1),[b,p]=r[2][bi],ch=(rnd(i*7+bi,TL[c.tl][1])-.4)*.34,old=p/(1+ch),q=r[3]*(.85+.3*rnd(i,3));
+ return{n:r[0],sec:r[1],brs:r[2].map(x=>x[0]),bi,p,old,q,amt:q*p}})}
+function cost(){const c=ST.C,rows=costRows();rows.sort((a,b)=>(a.amt-b.amt)*-c.sort);const pct=c.vt=="percentage";
+ if(c.rm=="section")rows.sort((a,b)=>a.sec.localeCompare(b.sec)||(a.amt-b.amt)*-c.sort);
+ const opts=[["All items","all"],...[...new Set(RM.map(r=>r[1]))].map(s=>["Category: "+s,"cat:"+s]),...RM.map(r=>["Item: "+r[0],"it:"+r[0]])];
+ return`<h2>COST OF SALES</h2><div class="bar">${fld("Raw material","rm",[["All Products","all"],["Section Wise","section"],["Main Store","main"],["Mini Store","mini"],["Kitchen","kitchen"]],c.rm)}${fld("Compare with","tl",Object.entries(TL).map(([k,v])=>[v[0],k]),c.tl)}${fld("Variance display","vt",[["Amount","amount"],["Percentage","percentage"]],c.vt)}</div>
+ <div class="card"><div class="sc"><table><tr><th class="l">Raw material</th><th class="l">Section</th><th class="l">Brand</th><th>Sales (qty)</th><th><button data-csort>Amount</button><small>${c.sort<0?"High to Low":"Low to High"}</small></th><th>Unit price</th><th>Variance (${TL[c.tl][0]})</th></tr>
+ ${rows.map(r=>{const d=r.p-r.old;return`<tr><td class="l">${r.n}</td><td class="l">${r.sec}</td><td class="l">${r.brs.length>1?`<select data-br="${r.n}">${r.brs.map((b,i)=>`<option value="${i}"${i==r.bi?" selected":""}>${b}</option>`).join("")}</select>`:r.brs[0]}</td><td>${fmt(r.q)}</td><td>${rs(r.amt)}</td><td>${rs(r.p)}</td><td>${arrow(d,true).replace(/class="(up|dn)"/,(m,x)=>`class="${x}"`)} ${pct?pc(d/r.old*100):rs(d)}</td></tr>`}).join("")}</table></div></div>
+ <div class="card"><h3>Price variance chart</h3><div class="bar" style="border:0;padding:0;margin-bottom:8px">${fld("Filter by category or item","cf",opts,c.cf)}</div><div id="cch"></div></div>`}
+function costChart(){const c=ST.C;let L=[],O=[],N=[];
+ if(c.cf.startsWith("it:")){const r=RM.find(x=>x[0]==c.cf.slice(3));r[2].forEach(([b,p],bi)=>{const k=RM.indexOf(r),ch=(rnd(k*7+bi,TL[c.tl][1])-.4)*.34;L.push(b);N.push(p);O.push(p/(1+ch))})}
+ else{const sec=c.cf.startsWith("cat:")?c.cf.slice(4):null;RM.forEach((r,k)=>{if(sec&&r[1]!=sec)return;const bi=Math.min(c.br[r[0]]||0,r[2].length-1),p=r[2][bi][1],ch=(rnd(k*7+bi,TL[c.tl][1])-.4)*.34;L.push(r[0]);N.push(p);O.push(p/(1+ch))})}
+ chart($("#cch"),L,[{n:"Historical ("+TL[c.tl][0]+")",v:O},{n:"Current",v:N}],"bar")}
+/* ---------- shell ---------- */
+function render(){
+ $("#nav").innerHTML="<h1>System MIS</h1>"+PAGES.map(p=>`<button class="${p==ST.page?"on":""}" data-p="${p}">${p}</button>`).join("");
+ const m=$("#main"),t=m.scrollTop;
+ if(ST.page=="Sales Dashboard"){m.innerHTML=sales();salesChart();timeChart()}
+ else if(ST.page=="Product Info"){m.innerHTML=product();productChart()}
+ else if(ST.page=="Cost of Sales"){m.innerHTML=cost();costChart()}
+ else m.innerHTML=`<h2>${ST.page.toUpperCase()}</h2><div class="card empty">This page is not set up yet. Share its filters and columns and it can be added in the same style.</div>`;
+ m.scrollTop=t}
+const KEY={"Sales Dashboard":"S","Product Info":"P","Cost of Sales":"C"};
+document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const st=ST[KEY[ST.page]];
+ if(b.dataset.p){ST.page=b.dataset.p;$("#main").scrollTop=0}
+ else if(b.dataset.s)st[b.dataset.s]=b.dataset.v;
+ else if(b.dataset.sort){const k=b.dataset.sort;ST.P.sort=[k,ST.P.sort[0]==k?-ST.P.sort[1]:-1]}
+ else if("csort" in b.dataset)ST.C.sort*=-1;else return;render()});
+document.addEventListener("change",e=>{const t=e.target,st=ST[KEY[ST.page]];
+ if(t.dataset.k)st[t.dataset.k]=t.value;
+ else if(t.dataset.br)ST.C.br[t.dataset.br]=+t.value;
+ else if(t.dataset.t){const[k,v]=t.dataset.t.split(":"),S=ST.P.sel,on=t.checked,set=(ix)=>ix.forEach(i=>on?S.add(i):S.delete(i));
+  if(k=="all")set(ALL);else if(k=="c")set(ALL.filter(i=>PR[i].c==v));else set([+v])}
+ else return;render()});
+render();
+</script>
+</body>
+</html>
