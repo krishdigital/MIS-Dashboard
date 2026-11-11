@@ -51,7 +51,7 @@ svg text.ax{font-size:11px;fill:var(--mut)}.f0{fill:var(--a)}.f1{fill:var(--b)}.
 const $=s=>document.querySelector(s),fmt=n=>Math.round(n).toLocaleString("en-LK"),rs=n=>"Rs. "+fmt(n),pc=n=>n.toFixed(1)+"%";
 const rnd=(a,b)=>{const x=Math.sin(a*127.1+b*311.7)*43758.5453;return x-Math.floor(x)};
 const dn=s=>Math.floor(Date.parse(s)/864e5),ds=d=>new Date(d*864e5).toISOString().slice(0,10);
-const CATS={Buns:[["Fish bun",60],["Cream bun",70],["Viana roll",80],["Umbalakada bun",50],["Sausage bun",90],["Jam bun",55],["Jam dot bun",55]],
+const CATS={Buns:[["Fish bun",60],["Cream bun",70],["Viana roll",80],["Umbalakada bun",50],["Sausage bun",90],["Jam bun",55],["Jam dot bun",55],["Chicken bun",150]],
 Shorteats:[["Chicken patties",110],["Egg patties",100],["Egg cutlet",90],["Vegetable cutlet",80],["Samosa",70],["Rolls",85],["Cheesy rolls",120]],
 Bread:[["Full bread",190],["Half bread",100],["Roast paan",30],["Sandwich bread small",130],["Sandwich bread big",220]]};
 const PR=[];Object.entries(CATS).forEach(([c,l])=>l.forEach(([n,p])=>PR.push({n,c,p,g:.22+.2*rnd(PR.length,9)})));
