@@ -78,7 +78,7 @@ const ST={page:"Sales Dashboard",
 S:{m:"daily",g:"total",u:"val",vt:"amount",from:"2026-10-03",to:"2026-11-02",wd:"0",td:"2026-11-02",t0:"09:00",t1:"10:00"},
 P:{f:"all",from:"2026-10-26",to:"2026-11-02",sel:new Set(ALL),sort:["v",-1],ck:"bar"},
 C:{rm:"all",tl:"mo",vt:"amount",sort:-1,cf:"all",br:{}}};
-const PAGES=["Sales Dashboard","Product Info","Cost of Sales","Price Variance","Wastage","Production Variance","KOT","Day End"];
+const PAGES=["Sales Dashboard"/*,"Product Info","Cost of Sales","Price Variance","Wastage","Production Variance","KOT","Day End"*/];
 /* ---------- Sales ---------- */
 function salesOld(){
  const s=ST.S,d0=dn(s.from),d1=Math.max(dn(s.to),d0),m=s.m,wd=+s.wd,len=d1-d0+1;
